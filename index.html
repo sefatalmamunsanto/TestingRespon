@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pi Network Lockup Manager - Ultra Clean</title>
+    <title>Pi Network Lockup Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         * {
@@ -21,51 +22,320 @@
             flex-direction: column;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* Top Navbar with Smooth Linear Gradient */
+        /* Prevent background scroll when active */
+        body.drawer-open {
+            overflow: hidden !important;
+            height: 100vh;
+        }
+
+        /* Top Navbar */
         .navbar {
             background: linear-gradient(135deg, #4a157d 0%, #310a56 100%);
             color: #ffffff;
-            padding: 18px 24px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Aligned left for clean feel */
+            justify-content: flex-start;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 20px rgba(74, 21, 125, 0.12);
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        /* Premium Interactive Home Link */
-        .home-link {
-            text-decoration: none;
+        /* 3-Line Hamburger Menu Button */
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
             font-size: 22px;
             cursor: pointer;
-            display: inline-flex;
+            padding: 4px 8px;
+            margin-right: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            transition: opacity 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .home-link:hover {
-            transform: scale(1.08);
-            opacity: 0.95;
+        .menu-btn:active {
+            opacity: 0.6;
         }
 
         .nav-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
             letter-spacing: 0.3px;
         }
 
-        /* Layout Container */
+        /* --- GLOBAL BACKDROP OVERLAY --- */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- NAVIGATION DRAWER SYSTEM --- */
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            left: -290px;
+            width: 285px;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 999;
+            box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .nav-drawer.active {
+            left: 0;
+        }
+
+        /* Drawer Language Header Trigger */
+        .drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .lang-selector:active {
+            opacity: 0.7;
+        }
+
+        .lang-selector i.fa-globe {
+            font-size: 19px;
+            color: #4a157d;
+        }
+
+        .lang-selector i.fa-caret-down {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-left: auto;
+        }
+
+        /* Drawer List Container (Scroll View Enabled) */
+        .drawer-menu-list {
+            list-style: none;
+            padding: 12px 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-grow: 1;
+            scrollbar-width: thin;
+        }
+        
+        .drawer-menu-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .drawer-menu-list::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Drawer Individual Menu Rows */
+        .drawer-item {
+            display: flex;
+            align-items: center;
+            padding: 13px 26px;
+            color: #334155;
+            text-decoration: none;
+            font-size: 14.5px;
+            font-weight: 500;
+            gap: 20px;
+            transition: background-color 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+            flex-shrink: 0;
+        }
+
+        .drawer-item:active {
+            background-color: #f1f5f9;
+        }
+
+        .drawer-item i {
+            font-size: 18px;
+            color: #64748b;
+            width: 22px;
+            text-align: center;
+        }
+
+        /* --- SCREEN LANGUAGE DIALOG --- */
+        .dialog-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+        .dialog-container.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lang-dialog {
+            width: 88%;
+            max-width: 360px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+            transform: scale(0.9);
+            transition: transform 0.2s ease;
+        }
+        .dialog-container.active .lang-dialog {
+            transform: scale(1);
+        }
+
+        .dialog-header {
+            padding: 20px 20px 12px 20px;
+            flex-shrink: 0;
+        }
+
+        .dialog-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .search-box-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-box-wrap i {
+            position: absolute;
+            left: 12px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .lang-search {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #334155;
+            outline: none;
+            background-color: #f8fafc;
+        }
+        .lang-search:focus {
+            border-color: #4a157d;
+            background-color: #ffffff;
+        }
+
+        .lang-list {
+            overflow-y: auto;
+            padding: 4px 0;
+            border-top: 1px solid #f1f5f9;
+            flex-grow: 1;
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .lang-option:not(:last-child) {
+            border-bottom: 1px solid #f8fafc;
+        }
+        .lang-option:active {
+            background-color: #f1f5f9;
+        }
+
+        .lang-text {
+            font-size: 14.5px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .radio-dot {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #94a3b8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+        .lang-option.selected .radio-dot {
+            border-color: #4a157d;
+        }
+        .lang-option.selected .radio-dot::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #4a157d;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .dialog-footer {
+            padding: 12px 20px 16px 20px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #f1f5f9;
+            flex-shrink: 0;
+        }
+        .btn-cancel {
+            background: none;
+            border: none;
+            color: #4a157d;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+        .btn-cancel:active {
+            background-color: #f3e8ff;
+        }
+
+        /* --- APP CONTENT CONTAINER --- */
         .container {
             max-width: 500px;
             width: 100%;
@@ -74,7 +344,6 @@
             flex: 1;
         }
 
-        /* Notice Alert Box */
         .alert-box {
             background-color: #fffbeb;
             border-left: 4px solid #f59e0b;
@@ -82,9 +351,7 @@
             padding: 16px 20px;
             box-shadow: 0 4px 14px rgba(245, 158, 11, 0.03);
             margin-bottom: 20px;
-            border-top: 1px solid rgba(245, 158, 11, 0.08);
-            border-right: 1px solid rgba(245, 158, 11, 0.08);
-            border-bottom: 1px solid rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.08);
         }
 
         .alert-title {
@@ -103,7 +370,6 @@
             line-height: 1.6;
         }
 
-        /* Premium Minimalist Cards */
         .info-card {
             background: #ffffff;
             border-radius: 16px;
@@ -111,11 +377,6 @@
             box-shadow: 0 4px 18px rgba(15, 23, 42, 0.02);
             margin-bottom: 16px;
             border: 1px solid #e2e8f0;
-            transition: box-shadow 0.2s ease;
-        }
-
-        .info-card:hover {
-            box-shadow: 0 6px 22px rgba(15, 23, 42, 0.04);
         }
 
         .card-header {
@@ -125,7 +386,6 @@
             margin-bottom: 12px;
         }
 
-        /* Polished Minimal Icon Wrap */
         .icon-wrap {
             width: 34px;
             height: 34px;
@@ -142,7 +402,6 @@
             font-size: 15px;
             font-weight: 600;
             color: #0f172a;
-            letter-spacing: -0.1px;
         }
 
         .card-desc {
@@ -151,7 +410,6 @@
             line-height: 1.6;
         }
 
-        /* Optimized Fee Row Layout */
         .fee-row {
             display: flex;
             justify-content: space-between;
@@ -173,7 +431,6 @@
             font-weight: 700;
         }
 
-        /* High-End Connect Button */
         .btn-connect {
             width: 100%;
             background: linear-gradient(135deg, #4a157d 0%, #3b0f65 100%);
@@ -189,19 +446,8 @@
             margin-top: 14px;
             margin-bottom: 24px;
             text-align: center;
-            letter-spacing: 0.2px;
         }
 
-        .btn-connect:hover {
-            background: linear-gradient(135deg, #3b0f65 0%, #29074b 100%);
-            box-shadow: 0 6px 20px rgba(74, 21, 125, 0.32);
-        }
-
-        .btn-connect:active {
-            transform: scale(0.995);
-        }
-
-        /* App Layout Footer */
         .footer {
             text-align: center;
             padding: 24px 16px;
@@ -225,18 +471,92 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="https://pinet.com" class="home-link">🏠</a>
-            <span class="nav-title">Pi Lockup Manager</span>
+    <div class="drawer-overlay" id="overlay" onclick="closeAll()"></div>
+
+    <div class="dialog-container" id="langDialogContainer">
+        <div class="lang-dialog">
+            <div class="dialog-header">
+                <h3 class="dialog-title">Select language</h3>
+                <div class="search-box-wrap">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="lang-search" id="langSearch" placeholder="Search" oninput="filterLanguages()">
+                </div>
+            </div>
+            
+            <div class="lang-list" id="langListContainer">
+                <div class="lang-option selected" data-code="EN" data-name="English" onclick="selectLanguage(this)">
+                    <span class="lang-text">English</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="ES" data-name="Español" onclick="selectLanguage(this)">
+                    <span class="lang-text">Español</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="VI" data-name="Tiếng Việt" onclick="selectLanguage(this)">
+                    <span class="lang-text">Tiếng Việt</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="FR" data-name="Français" onclick="selectLanguage(this)">
+                    <span class="lang-text">Français</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="KO" data-name="한국어" onclick="selectLanguage(this)">
+                    <span class="lang-text">한국어</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="BN" data-name="বাংলা" onclick="selectLanguage(this)">
+                    <span class="lang-text">বাংলা</span>
+                    <div class="radio-dot"></div>
+                </div>
+                <div class="lang-option" data-code="ALPHA" data-name="🛠️ Alpha Test Language" onclick="selectLanguage(this)">
+                    <span class="lang-text">🛠️ Alpha Test Language</span>
+                    <div class="radio-dot"></div>
+                </div>
+            </div>
+
+            <div class="dialog-footer">
+                <button class="btn-cancel" onclick="closeLangDialog()">CANCEL</button>
+            </div>
         </div>
+    </div>
+
+    <div class="nav-drawer" id="drawer">
+        <div class="drawer-header">
+            <div class="lang-selector" onclick="openLangDialog()">
+                <i class="fa-solid fa-globe"></i>
+                <span id="currentLangLabel">EN</span>
+                <i class="fa-solid fa-caret-down"></i>
+            </div>
+        </div>
+        
+        <div class="drawer-menu-list">
+            <a href="https://pinet.com" class="drawer-item" id="menu-home"><i class="fa-solid fa-house"></i><span data-key="m-home">Home</span></a>
+            <a href="https://app-cdn.minepi.com" class="drawer-item" id="menu-fireside"><i class="fa-solid fa-fire-flame-curved"></i><span data-key="m-fireside">Fireside</span></a>
+            <a href="https://wallet.pinet.com" class="drawer-item"><i class="fa-solid fa-wallet"></i><span data-key="m-wallet">Wallet</span></a>
+            <a href="https://brainstorm.pinet.com" class="drawer-item"><i class="fa-solid fa-lightbulb"></i><span data-key="m-brainstorm">Brainstorm</span></a>
+            <a href="https://mine.pinet.com" class="drawer-item"><i class="fa-solid fa-circle-nodes"></i><span data-key="m-mine">Mine</span></a>
+            <a href="https://blockexplorer.minepi.com/mainnet" class="drawer-item"><i class="fa-solid fa-link"></i><span data-key="m-blockchain">Blockchain</span></a>
+            <a href="https://develop.pinet.com" class="drawer-item"><i class="fa-solid fa-code"></i><span data-key="m-develop">Develop</span></a>
+            <a href="https://kyc.pinet.com" class="drawer-item"><i class="fa-solid fa-id-card"></i><span data-key="m-kyc">KYC</span></a>
+            <a href="https://chat.pinet.com" class="drawer-item"><i class="fa-solid fa-comment-dots"></i><span data-key="m-chat">Chat</span></a>
+            <a href="https://profiles.pinet.com" class="drawer-item"><i class="fa-solid fa-user-gear"></i><span data-key="m-profiles">Profiles</span></a>
+            <a href="https://domains.pinet.com" class="drawer-item"><i class="fa-solid fa-globe"></i><span data-key="m-domains">Domains</span></a>
+            <a href="https://app-cdn.minepi.com" class="drawer-item"><i class="fa-solid fa-cubes"></i><span data-key="m-studio">App Studio</span></a>
+            <a href="https://launchpad.pinet.com" class="drawer-item"><i class="fa-solid fa-rocket"></i><span data-key="m-launch">Launchpad</span></a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <button class="menu-btn" onclick="toggleDrawer()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="nav-title" id="navTitle" data-key="nav-title">Pi Lockup Manager</span>
     </nav>
 
     <div class="container">
-
         <div class="alert-box">
-            <div class="alert-title">🔐 Real Blockchain Integration</div>
-            <div class="alert-desc">
+            <div class="alert-title" id="alertTitle" data-key="alert-title">🔐 Real Blockchain Integration</div>
+            <div class="alert-desc" id="alertDesc" data-key="alert-desc">
                 This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.
             </div>
         </div>
@@ -244,9 +564,9 @@
         <div class="info-card">
             <div class="card-header">
                 <div class="icon-wrap">📚</div>
-                <h2 class="card-title">Understanding Lockup</h2>
+                <h2 class="card-title" data-key="card1-title">Understanding Lockup</h2>
             </div>
-            <p class="card-desc">
+            <p class="card-desc" data-key="card1-desc">
                 A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.
             </p>
         </div>
@@ -254,9 +574,9 @@
         <div class="info-card">
             <div class="card-header">
                 <div class="icon-wrap">⏱️</div>
-                <h2 class="card-title">Early Unlock Option</h2>
+                <h2 class="card-title" data-key="card2-title">Early Unlock Option</h2>
             </div>
-            <p class="card-desc">
+            <p class="card-desc" data-key="card2-desc">
                 You can request to unlock your locked tokens before maturity. However, this early release attracts a 10% service fee, which is deducted automatically from your locked balance.
             </p>
         </div>
@@ -264,27 +584,204 @@
         <div class="info-card">
             <div class="card-header">
                 <div class="icon-wrap">💰</div>
-                <h2 class="card-title">Fee Breakdown</h2>
+                <h2 class="card-title" data-key="card3-title">Fee Breakdown</h2>
             </div>
-            
             <div class="fee-row">
-                <span class="fee-label">Service Fee</span>
+                <span class="fee-label" data-key="fee-label">Service Fee</span>
                 <span class="fee-value">10%</span>
             </div>
-
-            <p class="card-desc" style="font-size: 12.5px; color: #64748b;">
+            <p class="card-desc" style="font-size: 12.5px; color: #64748b;" data-key="fee-desc">
                 The 10% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.
             </p>
         </div>
 
-        <button class="btn-connect">Connect Pi Wallet</button>
-
+        <button class="btn-connect" id="btnConnect" data-key="btn-text">Connect Pi Wallet</button>
     </div>
 
     <footer class="footer">
         <div class="footer-title">Pi Network Lockup Manager v1.0</div>
-        <div class="footer-links">Real Blockchain Integration • Educational Demo</div>
+        <div class="footer-links" data-key="footer-links">Real Blockchain Integration • Educational Demo</div>
     </footer>
 
+    <script>
+        const translations = {
+            EN: {
+                "nav-title": "Pi Lockup Manager",
+                "alert-title": "🔐 Real Blockchain Integration",
+                "alert-desc": "This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.",
+                "card1-title": "Understanding Lockup",
+                "card1-desc": "A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.",
+                "card2-title": "Early Unlock Option",
+                "card2-desc": "You can request to unlock your locked tokens before maturity. However, this early release attracts a 10% service fee, which is deducted automatically from your locked balance.",
+                "card3-title": "Fee Breakdown",
+                "fee-label": "Service Fee",
+                "fee-desc": "The 10% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.",
+                "btn-text": "Connect Pi Wallet",
+                "footer-links": "Real Blockchain Integration • Educational Demo",
+                "m-home": "Home", "m-fireside": "Fireside", "m-wallet": "Wallet", "m-brainstorm": "Brainstorm", "m-mine": "Mine", "m-blockchain": "Blockchain", "m-develop": "Develop", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Profiles", "m-domains": "Domains", "m-studio": "App Studio", "m-launch": "Launchpad"
+            },
+            BN: {
+                "nav-title": "পাই লকআপ ম্যানেজার",
+                "alert-title": "🔐 রিয়েল ব্লকচেইন ইন্টিগ্রেশন",
+                "alert-desc": "এই অ্যাপ্লিকেশনটি রিয়েল ওয়ালেট লকআপ ব্যালেন্স আনতে পাই নেটওয়ার্ক ব্লকচেইনের সাথে সংযোগ করে। কোনো সিড ফ্রেজ সংরক্ষণ বা পাঠানো হয় না।",
+                "card1-title": "লকআপ কি এবং কেন",
+                "card1-desc": "ডিজিটাল অ্যাসেট লকআপ হলো যখন আপনার পাই টোকেনগুলো একটি নির্দিষ্ট সময়ের জন্য আটকে রাখা হয়, যা নির্দিষ্ট তারিখের আগে তোলা যায় না। এটি প্রজেক্টের দীর্ঘমেয়াদী স্থায়িত্ব নিশ্চিত করে।",
+                "card2-title": "আর্লি আনলক অপশন",
+                "card2-desc": "আপনি চাইলে মেয়াদ শেষ হওয়ার আগেই আপনার লক করা টোকেনগুলো আনলক করার অনুরোধ করতে পারেন। তবে, এই আর্লি রিলিজে ১০% সার্ভিস ফি লাগবে, যা আপনার লক করা ব্যালেন্স থেকে কেটে নেওয়া হবে।",
+                "card3-title": "ফি-এর বিবরণ",
+                "fee-label": "সার্ভিস ফি",
+                "fee-desc": "১০% সার্ভিস ফি মূলত ব্যবহারকারীদের ম্যাচিউরিটি ডেট পর্যন্ত হোল্ড করতে উৎসাহিত করে। এটি স্বয়ংক্রিয়ভাবে আপনার লক করা ব্যালেন্স থেকে কাটা হয়।",
+                "btn-text": "পাই ওয়ালেট কানেক্ট করুন",
+                "footer-links": "রিয়েল ব্লকচেইন ইন্টিগ্রেশন • শিক্ষামূলক ডেমো",
+                "m-home": "হোম", "m-fireside": "ফায়ারসাইড", "m-wallet": "ওয়ালেট", "m-brainstorm": "ব্রেনস্টর্ম", "m-mine": "মাইন", "m-blockchain": "ব্লকচেইন", "m-develop": "ডেভেলপ", "m-kyc": "কেওয়াইসি", "m-chat": "চ্যাট", "m-profiles": "প্রোফাইল", "m-domains": "ডোমেইন", "m-studio": "অ্যাপ স্টুディオ", "m-launch": "লঞ্চপ্যাড"
+            },
+            ES: {
+                "nav-title": "Gestor de Bloqueo Pi",
+                "alert-title": "🔐 Integración de Blockchain Real",
+                "alert-desc": "Esta aplicación se conecta a la blockchain de Pi Network para obtener saldos reales de bloqueo de billetera. No se almacenan ni transmiten frases semilla.",
+                "card1-title": "Entendiendo el Bloqueo",
+                "card1-desc": "El bloqueo de activos digitales ocurre cuando tus tokens Pi se mantienen retenidos por un tiempo determinado, impidiendo su retiro hasta una fecha específica.",
+                "card2-title": "Opción de Desbloqueo Anticipado",
+                "card2-desc": "Puedes solicitar desbloquear tus tokens antes del vencimiento. Sin embargo, esta liberación anticipada conlleva una tarifa de servicio del 10%.",
+                "card3-title": "Desglose de Tarifas",
+                "fee-label": "Tarifa de Servicio",
+                "fee-desc": "La tarifa del 10% incentiva mantener los activos hasta la fecha de vencimiento natural. Se deduce automáticamente.",
+                "btn-text": "Conectar Billetera Pi",
+                "footer-links": "Integración Blockchain Real • Demo Educativa",
+                "m-home": "Inicio", "m-fireside": "Fireside", "m-wallet": "Billetera", "m-brainstorm": "Brainstorm", "m-mine": "Minar", "m-blockchain": "Blockchain", "m-develop": "Desarrollar", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Perfiles", "m-domains": "Dominios", "m-studio": "App Studio", "m-launch": "Lanzamiento"
+            },
+            VI: {
+                "nav-title": "Trình Quản Lý Khóa Pi",
+                "alert-title": "🔐 Tích Hợp Blockchain Thực Tế",
+                "alert-desc": "Ứng dụng này kết nối with blockchain Pi Network để lấy số dư khóa ví thực tế. Không có cụm từ mật khẩu nào được lưu trữ hoặc truyền đi.",
+                "card1-title": "Hiểu Về Cơ Chế Khóa",
+                "card1-desc": "Khóa tài sản kỹ thuật số là khi các mã thông báo Pi của bạn được giữ trong trạng thái khóa thời gian, ngăn chặn việc rút tiền cho đến một ngày cụ thể.",
+                "card2-title": "Tùy Chọn Mở Khóa Sớm",
+                "card2-desc": "Bạn có thể yêu cầu mở khóa mã thông báo trước thời hạn. Tuy nhiên, việc giải phóng sớm này sẽ chịu mức phí dịch vụ 10%.",
+                "card3-title": "Chi Tiết Chi Phí",
+                "fee-label": "Phí Dịch Vụ",
+                "fee-desc": "Mức phí 10% nhằm khuyến khích việc nắm giữ cho đến ngày đáo hạn tự nhiên. Phí này được khấu trừ tự động.",
+                "btn-text": "Kết Nối Ví Pi",
+                "footer-links": "Tích hợp Blockchain Thực tế • Bản Thử nghiệm",
+                "m-home": "Trang chủ", "m-fireside": "Fireside", "m-wallet": "Ví", "m-brainstorm": "Brainstorm", "m-mine": "Khai thác", "m-blockchain": "Blockchain", "m-develop": "Phát triển", "m-kyc": "KYC", "m-chat": "Trò chuyện", "m-profiles": "Hồ sơ", "m-domains": "Tên miền", "m-studio": "App Studio", "m-launch": "Bệ phóng"
+            },
+            FR: {
+                "nav-title": "Gestionnaire de Verrouillage Pi",
+                "alert-title": "🔐 Intégration Blockchain Réelle",
+                "alert-desc": "Cette application se connecte à la blockchain Pi Network para récupérer les soldes réels de verrouillage du portefeuille. Aucune phrase de récupération n'est stockée.",
+                "card1-title": "Comprendre le Verrouillage",
+                "card1-desc": "Un verrouillage d'actifs numériques consiste à bloquer vos jetons Pi pendant une période définie, empêchant tout retrait avant une date spécifiée.",
+                "card2-title": "Option de Déverrouillage Anticipé",
+                "card2-desc": "Vous pouvez demander à déverrouiller vos jetons avant l'échéance. Cependant, cette libération anticipée entraîne des frais de service de 10%.",
+                "card3-title": "Détail des Frais",
+                "fee-label": "Frais de Service",
+                "fee-desc": "Les frais de 10% incitent à conserver les actifs jusqu'à la date d'échéance naturelle. Ils sont déduits automatiquement.",
+                "btn-text": "Connecter le Portefeuille Pi",
+                "footer-links": "Intégration Blockchain Réelle • Démo Éducative",
+                "m-home": "Accueil", "m-fireside": "Fireside", "m-wallet": "Portefeuille", "m-brainstorm": "Brainstorm", "m-mine": "Miner", "m-blockchain": "Blockchain", "m-develop": "Développer", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Profils", "m-domains": "Domaines", "m-studio": "App Studio", "m-launch": "Launchpad"
+            },
+            KO: {
+                "nav-title": "Pi 잠금 관리자",
+                "alert-title": "🔐 실제 블록체인 연동",
+                "alert-desc": "이 애플리케이션은 Pi Network 블록체인에 연결하여 실제 지갑 잠금 잔액을 가져옵니다. 니모닉 암호는 저장되거나 전송되지 않습니다.",
+                "card1-title": "잠금 메커니즘 이해",
+                "card1-desc": "디지털 자산 잠금은 Pi 토큰을 시간 설정된 상태로 유지하여 특정 날짜가 될 때까지 출금을 방지하는 것입니다.",
+                "card2-title": "조기 잠금 해제 옵션",
+                "card2-desc": "만기 전에 잠긴 토큰의 해제를 요청할 수 있습니다. 그러나 이 조기 해제에는 10%의 서비스 수수료가 부과됩니다.",
+                "card3-title": "수수료 내역",
+                "fee-label": "서비스 수수료",
+                "fee-desc": "10% 수수료는 만기일까지 보유하도록 장려합니다. 이는 잠금 잔액에서 자동으로 차감됩니다.",
+                "btn-text": "Pi 지갑 연결",
+                "footer-links": "실제 블록체인 연동 • 교육용 데모",
+                "m-home": "홈", "m-fireside": "Fireside", "m-wallet": "지갑", "m-brainstorm": "Brainstorm", "m-mine": "채굴", "m-blockchain": "블록체인", "m-develop": "개발", "m-kyc": "KYC", "m-chat": "채팅", "m-profiles": "프로필", "m-domains": "도메인", "m-studio": "App Studio", "m-launch": "런칭패드"
+            },
+            ALPHA: {
+                "nav-title": "[α] Pi Mgr",
+                "alert-title": "🛠️ Test Environment",
+                "alert-desc": "Alpha environment pipeline test build check strings translation workflow simulation framework context active operational node.",
+                "card1-title": "[α] Lockup Logic",
+                "card1-desc": "Data string hold verification routine until target index parameters match designated deployment calendar timeline array profiles.",
+                "card2-title": "[α] Early Gateway",
+                "card2-desc": "Forced interrupt execution protocol over scheduled ledger holding blocks. Requires 10% simulation calculation parameter cost distribution.",
+                "card3-title": "[α] Cost Index",
+                "fee-label": "Cost Mod",
+                "fee-desc": "System structural balancing index penalty values calculated on live operational runtime streams.",
+                "btn-text": "Initialize Alpha Connect",
+                "footer-links": "Build v1.0-Alpha • Development Pipeline Checked",
+                "m-home": "α-Home", "m-fireside": "α-Fireside", "m-wallet": "α-Wallet", "m-brainstorm": "α-Brainstorm", "m-mine": "α-Mine", "m-blockchain": "α-Blockchain", "m-develop": "α-Develop", "m-kyc": "α-KYC", "m-chat": "α-Chat", "m-profiles": "α-Profiles", "m-domains": "α-Domains", "m-studio": "α-Studio", "m-launch": "α-Launch"
+            }
+        };
+
+        function toggleDrawer() {
+            const isOpening = !document.getElementById('drawer').classList.contains('active');
+            document.getElementById('drawer').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+            
+            // Background scroll lock mechanism
+            if (isOpening) {
+                document.body.classList.add('drawer-open');
+            } else {
+                document.body.classList.remove('drawer-open');
+            }
+        }
+
+        function openLangDialog() {
+            document.getElementById('langDialogContainer').classList.add('active');
+            document.getElementById('langSearch').value = ''; 
+            filterLanguages(); 
+            document.body.classList.add('drawer-open');
+        }
+
+        function closeLangDialog() {
+            document.getElementById('langDialogContainer').classList.remove('active');
+            if (!document.getElementById('drawer').classList.contains('active')) {
+                document.body.classList.remove('drawer-open');
+            }
+        }
+
+        function closeAll() {
+            document.getElementById('drawer').classList.remove('active');
+            document.getElementById('langDialogContainer').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            document.body.classList.remove('drawer-open');
+        }
+
+        function selectLanguage(element) {
+            const options = document.querySelectorAll('.lang-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const langCode = element.getAttribute('data-code');
+            document.getElementById('currentLangLabel').innerText = langCode === "ALPHA" ? "ALPHA" : langCode;
+
+            if(translations[langCode]) {
+                const langPack = translations[langCode];
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if(langPack[key]) {
+                        el.innerText = langPack[key];
+                    }
+                });
+            }
+
+            setTimeout(() => {
+                closeAll();
+            }, 180);
+        }
+
+        function filterLanguages() {
+            const query = document.getElementById('langSearch').value.toLowerCase();
+            const options = document.querySelectorAll('.lang-option');
+
+            options.forEach(option => {
+                const text = option.querySelector('.lang-text').innerText.toLowerCase();
+                if(text.includes(query)) {
+                    option.style.display = 'flex';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
