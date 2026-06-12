@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Network Lockup Manager - Ultra Clean</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navbar with Smooth Linear Gradient */
+        .navbar {
+            background: linear-gradient(135deg, #4a157d 0%, #310a56 100%);
+            color: #ffffff;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Aligned left for clean feel */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(74, 21, 125, 0.12);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Premium Interactive Home Link */
+        .home-link {
+            text-decoration: none;
+            font-size: 22px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .home-link:hover {
+            transform: scale(1.08);
+            opacity: 0.95;
+        }
+
+        .nav-title {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 500px;
+            width: 100%;
+            margin: 24px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* Notice Alert Box */
+        .alert-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            border-radius: 14px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.03);
+            margin-bottom: 20px;
+            border-top: 1px solid rgba(245, 158, 11, 0.08);
+            border-right: 1px solid rgba(245, 158, 11, 0.08);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.08);
+        }
+
+        .alert-title {
+            color: #b45309;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .alert-desc {
+            color: #d97706;
+            font-size: 12.5px;
+            line-height: 1.6;
+        }
+
+        /* Premium Minimalist Cards */
+        .info-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.02);
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .info-card:hover {
+            box-shadow: 0 6px 22px rgba(15, 23, 42, 0.04);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* Polished Minimal Icon Wrap */
+        .icon-wrap {
+            width: 34px;
+            height: 34px;
+            background-color: #f3e8ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #7e57c2;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f172a;
+            letter-spacing: -0.1px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Optimized Fee Row Layout */
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .fee-label {
+            font-size: 13.5px;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .fee-value {
+            font-size: 16px;
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        /* High-End Connect Button */
+        .btn-connect {
+            width: 100%;
+            background: linear-gradient(135deg, #4a157d 0%, #3b0f65 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(74, 21, 125, 0.22);
+            transition: all 0.2s ease;
+            margin-top: 14px;
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-connect:hover {
+            background: linear-gradient(135deg, #3b0f65 0%, #29074b 100%);
+            box-shadow: 0 6px 20px rgba(74, 21, 125, 0.32);
+        }
+
+        .btn-connect:active {
+            transform: scale(0.995);
+        }
+
+        /* App Layout Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 16px;
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            margin-top: auto;
+        }
+
+        .footer-title {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .footer-links {
+            font-size: 11.5px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="https://pinet.com" class="home-link">🏠</a>
+            <span class="nav-title">Pi Lockup Manager</span>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="alert-box">
+            <div class="alert-title">🔐 Real Blockchain Integration</div>
+            <div class="alert-desc">
+                This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">📚</div>
+                <h2 class="card-title">Understanding Lockup</h2>
+            </div>
+            <p class="card-desc">
+                A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">⏱️</div>
+                <h2 class="card-title">Early Unlock Option</h2>
+            </div>
+            <p class="card-desc">
+                You can request to unlock your locked tokens before maturity. However, this early release attracts a 10% service fee, which is deducted automatically from your locked balance.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">💰</div>
+                <h2 class="card-title">Fee Breakdown</h2>
+            </div>
+            
+            <div class="fee-row">
+                <span class="fee-label">Service Fee</span>
+                <span class="fee-value">10%</span>
+            </div>
+
+            <p class="card-desc" style="font-size: 12.5px; color: #64748b;">
+                The 10% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.
+            </p>
+        </div>
+
+        <button class="btn-connect">Connect Pi Wallet</button>
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-title">Pi Network Lockup Manager v1.0</div>
+        <div class="footer-links">Real Blockchain Integration • Educational Demo</div>
+    </footer>
+
+</body>
+</html>
