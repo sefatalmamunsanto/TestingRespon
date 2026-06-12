@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Network Lockup Manager</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,11 +25,13 @@
             overflow-x: hidden;
         }
 
+        /* Prevent background scroll when active */
         body.drawer-open {
             overflow: hidden !important;
             height: 100vh;
         }
 
+        /* Top Navbar */
         .navbar {
             background: linear-gradient(135deg, #4a157d 0%, #310a56 100%);
             color: #ffffff;
@@ -43,6 +45,7 @@
             box-shadow: 0 4px 20px rgba(74, 21, 125, 0.12);
         }
 
+        /* 3-Line Hamburger Menu Button */
         .menu-btn {
             background: none;
             border: none;
@@ -68,6 +71,7 @@
             letter-spacing: 0.3px;
         }
 
+        /* --- GLOBAL BACKDROP OVERLAY --- */
         .drawer-overlay {
             position: fixed;
             top: 0;
@@ -85,6 +89,7 @@
             visibility: visible;
         }
 
+        /* --- NAVIGATION DRAWER SYSTEM --- */
         .nav-drawer {
             position: fixed;
             top: 0;
@@ -102,6 +107,7 @@
             left: 0;
         }
 
+        /* Drawer Language Header Trigger */
         .drawer-header {
             padding: 20px 24px;
             border-bottom: 1px solid #eef2f6;
@@ -137,6 +143,7 @@
             margin-left: auto;
         }
 
+        /* Drawer List Container (Scroll View Enabled) */
         .drawer-menu-list {
             list-style: none;
             padding: 12px 0;
@@ -155,6 +162,7 @@
             border-radius: 4px;
         }
 
+        /* Drawer Individual Menu Rows */
         .drawer-item {
             display: flex;
             align-items: center;
@@ -180,6 +188,7 @@
             text-align: center;
         }
 
+        /* --- SCREEN LANGUAGE DIALOG --- */
         .dialog-container {
             position: fixed;
             top: 0;
@@ -202,13 +211,13 @@
 
         .lang-dialog {
             width: 88%;
-            max-width: 400px;
+            max-width: 360px;
             background-color: #ffffff;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
-            max-height: 85vh;
+            max-height: 80vh;
             transform: scale(0.9);
             transition: transform 0.2s ease;
         }
@@ -225,14 +234,7 @@
             font-size: 18px;
             font-weight: 700;
             color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .dialog-note {
-            font-size: 11px;
-            color: #94a3b8;
-            margin-bottom: 16px;
-            line-height: 1.4;
+            margin-bottom: 12px;
         }
 
         .search-box-wrap {
@@ -272,17 +274,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 20px;
+            padding: 14px 20px;
             cursor: pointer;
             transition: background-color 0.15s ease;
             -webkit-tap-highlight-color: transparent;
+        }
+        .lang-option:not(:last-child) {
+            border-bottom: 1px solid #f8fafc;
         }
         .lang-option:active {
             background-color: #f1f5f9;
         }
 
         .lang-text {
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 500;
             color: #334155;
         }
@@ -330,6 +335,7 @@
             background-color: #f3e8ff;
         }
 
+        /* --- APP CONTENT CONTAINER --- */
         .container {
             max-width: 500px;
             width: 100%;
@@ -408,11 +414,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
             border-bottom: 1px solid #f1f5f9;
-        }
-        .fee-row:last-child {
-            border-bottom: none;
         }
 
         .fee-label {
@@ -425,7 +429,6 @@
             font-size: 16px;
             color: #f59e0b;
             font-weight: 700;
-            white-space: nowrap;
         }
 
         .btn-connect {
@@ -443,114 +446,6 @@
             margin-top: 14px;
             margin-bottom: 24px;
             text-align: center;
-        }
-
-        .btn-connect:active {
-            opacity: 0.9;
-            transform: scale(0.99);
-        }
-
-        .btn-connect:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #ffffff;
-            color: #475569;
-            border: 1px solid #e2e8f0;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
-            transition: all 0.15s ease;
-            margin-bottom: 18px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-back:active {
-            background-color: #f8fafc;
-            transform: scale(0.98);
-            border-color: #cbd5e1;
-        }
-
-        #walletView, #confirmView, #successView {
-            display: none;
-        }
-
-        .phrase-textarea {
-            width: 100%;
-            height: 120px;
-            padding: 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            font-size: 14.5px;
-            color: #0f172a;
-            outline: none;
-            resize: none;
-            background-color: #f8fafc;
-            margin-top: 14px;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-            line-height: 1.5;
-        }
-
-        .phrase-textarea:focus {
-            border-color: #4a157d;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(74, 21, 125, 0.08);
-        }
-
-        .phrase-textarea.error-border {
-            border-color: #ef4444;
-        }
-        .phrase-textarea.error-border:focus {
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
-        }
-
-        .phrase-helper {
-            font-size: 12px;
-            color: #64748b;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .error-message-label {
-            font-size: 14px;
-            color: #ef4444;
-            font-weight: 500;
-            margin-top: 6px;
-            margin-bottom: 14px;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .security-list {
-            list-style: none;
-            margin-top: 14px;
-        }
-
-        .security-list li {
-            font-size: 13px;
-            color: #475569;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .security-list li i {
-            color: #10b981;
-            font-size: 14px;
         }
 
         .footer {
@@ -572,140 +467,6 @@
             font-size: 11.5px;
             color: #94a3b8;
         }
-
-        .loader-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .circular-progress {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-        .circular-progress svg {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-        .circular-progress circle {
-            fill: none;
-            stroke-width: 4;
-        }
-        .circular-progress .bg-circle {
-            stroke: #e2e8f0;
-        }
-        .circular-progress .progress-circle {
-            stroke: #4a157d;
-            stroke-dasharray: 226;
-            stroke-dashoffset: 226;
-            transition: stroke-dashoffset 0.05s linear;
-        }
-        .loading-text {
-            font-size: 14px;
-            color: #64748b;
-            margin-top: 12px;
-        }
-
-        .logout-btn {
-            background: none;
-            border: none;
-            color: #ef4444;
-            font-size: 12px;
-            cursor: pointer;
-            margin-top: 8px;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
-        @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        .animate-check {
-            animation: fadeInScale 0.5s ease-out;
-        }
-        
-        .hidden-section {
-            display: none;
-        }
-
-        /* Custom utility classes */
-        .text-center { text-align: center; }
-        .text-left { text-align: left; }
-        .text-gray-500 { color: #6b7280; }
-        .text-gray-400 { color: #9ca3af; }
-        .text-purple-700 { color: #6d28d9; }
-        .text-red-500 { color: #ef4444; }
-        .text-red-600 { color: #dc2626; }
-        .text-red-700 { color: #b91c1c; }
-        .text-green-600 { color: #16a34a; }
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .text-4xl { font-size: 2.25rem; }
-        .text-2xl { font-size: 1.5rem; }
-        .text-lg { font-size: 1.125rem; }
-        .font-bold { font-weight: 700; }
-        .font-mono { font-family: monospace; }
-        .mb-1 { margin-bottom: 0.25rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .mt-2 { margin-top: 0.5rem; }
-        .mt-8 { margin-top: 2rem; }
-        .p-2 { padding: 0.5rem; }
-        .p-4 { padding: 1rem; }
-        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .border { border-width: 1px; }
-        .border-red-200 { border-color: #fecaca; }
-        .border-t-4 { border-top-width: 4px; }
-        .border-purple-800 { border-color: #6b21a8; }
-        .bg-gray-100 { background-color: #f3f4f6; }
-        .bg-red-50 { background-color: #fef2f2; }
-        .bg-green-500 { background-color: #22c55e; }
-        .inline-block { display: inline-block; }
-        .block { display: block; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .flex { display: flex; }
-        .justify-center { justify-content: center; }
-        .items-center { align-items: center; }
-        .w-20 { width: 5rem; }
-        .h-20 { height: 5rem; }
-        .w-12 { width: 3rem; }
-        .h-12 { height: 3rem; }
-        .ml-4 { margin-left: 1rem; }
-        .space-y-1 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem; }
-        .list-decimal { list-style-type: decimal; }
-        /* Success tick circle style */
-        .success-tick-circle {
-            width: 80px;
-            height: 80px;
-            background: #22c55e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.3);
-        }
-        .success-tick-circle svg {
-            width: 48px;
-            height: 48px;
-            stroke: white;
-            stroke-width: 3;
-        }
     </style>
 </head>
 <body>
@@ -715,11 +476,10 @@
     <div class="dialog-container" id="langDialogContainer">
         <div class="lang-dialog">
             <div class="dialog-header">
-                <h3 class="dialog-title" data-key="dialog-title">Select your language</h3>
-                <div class="dialog-note" data-key="dialog-note">Note: The app interface in other languages is translated by Pi's community members and may contain some inaccuracies. For full accuracy, always refer to the English app interface.</div>
+                <h3 class="dialog-title">Select language</h3>
                 <div class="search-box-wrap">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" class="lang-search" id="langSearch" placeholder="Search language" oninput="filterLanguages()">
+                    <input type="text" class="lang-search" id="langSearch" placeholder="Search" oninput="filterLanguages()">
                 </div>
             </div>
             
@@ -748,10 +508,14 @@
                     <span class="lang-text">বাংলা</span>
                     <div class="radio-dot"></div>
                 </div>
+                <div class="lang-option" data-code="ALPHA" data-name="🛠️ Alpha Test Language" onclick="selectLanguage(this)">
+                    <span class="lang-text">🛠️ Alpha Test Language</span>
+                    <div class="radio-dot"></div>
+                </div>
             </div>
 
             <div class="dialog-footer">
-                <button class="btn-cancel" onclick="closeLangDialog()" data-key="btn-close">Close</button>
+                <button class="btn-cancel" onclick="closeLangDialog()">CANCEL</button>
             </div>
         </div>
     </div>
@@ -766,19 +530,19 @@
         </div>
         
         <div class="drawer-menu-list">
-            <a href="#" class="drawer-item"><i class="fa-solid fa-house"></i><span data-key="m-home">Home</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-fire-flame-curved"></i><span data-key="m-fireside">Fireside</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-wallet"></i><span data-key="m-wallet">Wallet</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-lightbulb"></i><span data-key="m-brainstorm">Brainstorm</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-circle-nodes"></i><span data-key="m-mine">Mine</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-link"></i><span data-key="m-blockchain">Blockchain</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-code"></i><span data-key="m-develop">Develop</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-id-card"></i><span data-key="m-kyc">KYC</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-comment-dots"></i><span data-key="m-chat">Chat</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-user-gear"></i><span data-key="m-profiles">Profiles</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-globe"></i><span data-key="m-domains">Domains</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-cubes"></i><span data-key="m-studio">App Studio</span></a>
-            <a href="#" class="drawer-item"><i class="fa-solid fa-rocket"></i><span data-key="m-launch">Launchpad</span></a>
+            <a href="https://pinet.com" class="drawer-item" id="menu-home"><i class="fa-solid fa-house"></i><span data-key="m-home">Home</span></a>
+            <a href="https://app-cdn.minepi.com" class="drawer-item" id="menu-fireside"><i class="fa-solid fa-fire-flame-curved"></i><span data-key="m-fireside">Fireside</span></a>
+            <a href="https://wallet.pinet.com" class="drawer-item"><i class="fa-solid fa-wallet"></i><span data-key="m-wallet">Wallet</span></a>
+            <a href="https://brainstorm.pinet.com" class="drawer-item"><i class="fa-solid fa-lightbulb"></i><span data-key="m-brainstorm">Brainstorm</span></a>
+            <a href="https://mine.pinet.com" class="drawer-item"><i class="fa-solid fa-circle-nodes"></i><span data-key="m-mine">Mine</span></a>
+            <a href="https://blockexplorer.minepi.com/mainnet" class="drawer-item"><i class="fa-solid fa-link"></i><span data-key="m-blockchain">Blockchain</span></a>
+            <a href="https://develop.pinet.com" class="drawer-item"><i class="fa-solid fa-code"></i><span data-key="m-develop">Develop</span></a>
+            <a href="https://kyc.pinet.com" class="drawer-item"><i class="fa-solid fa-id-card"></i><span data-key="m-kyc">KYC</span></a>
+            <a href="https://chat.pinet.com" class="drawer-item"><i class="fa-solid fa-comment-dots"></i><span data-key="m-chat">Chat</span></a>
+            <a href="https://profiles.pinet.com" class="drawer-item"><i class="fa-solid fa-user-gear"></i><span data-key="m-profiles">Profiles</span></a>
+            <a href="https://domains.pinet.com" class="drawer-item"><i class="fa-solid fa-globe"></i><span data-key="m-domains">Domains</span></a>
+            <a href="https://app-cdn.minepi.com" class="drawer-item"><i class="fa-solid fa-cubes"></i><span data-key="m-studio">App Studio</span></a>
+            <a href="https://launchpad.pinet.com" class="drawer-item"><i class="fa-solid fa-rocket"></i><span data-key="m-launch">Launchpad</span></a>
         </div>
     </div>
 
@@ -786,554 +550,185 @@
         <button class="menu-btn" onclick="toggleDrawer()">
             <i class="fa-solid fa-bars"></i>
         </button>
-        <span class="nav-title" data-key="nav-title">Pi Lockup Manager</span>
+        <span class="nav-title" id="navTitle" data-key="nav-title">Pi Lockup Manager</span>
     </nav>
 
-    <div class="container" id="appContainer">
-        
-        <!-- Main View -->
-        <div id="mainView">
-            <div class="alert-box">
-                <div class="alert-title" data-key="alert-title">Real Blockchain Integration</div>
-                <div class="alert-desc" data-key="alert-desc">
-                    This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.
-                </div>
-            </div>
-
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-wrap"><i class="fa-solid fa-book"></i></div>
-                    <h2 class="card-title" data-key="card1-title">Understanding Lockup</h2>
-                </div>
-                <p class="card-desc" data-key="card1-desc">
-                    A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.
-                </p>
-            </div>
-
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-wrap"><i class="fa-solid fa-clock"></i></div>
-                    <h2 class="card-title" data-key="card2-title">Early Unlock Option</h2>
-                </div>
-                <p class="card-desc" data-key="card2-desc">
-                    You can request to unlock your locked tokens before maturity. However, this early release attracts a 3% service fee, which is deducted automatically from your locked balance.
-                </p>
-            </div>
-
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-wrap"><i class="fa-solid fa-coins"></i></div>
-                    <h2 class="card-title" data-key="card3-title">Fee Breakdown</h2>
-                </div>
-                <div class="fee-row">
-                    <span class="fee-label" data-key="fee-label">Service Fee</span>
-                    <span class="fee-value">3%</span>
-                </div>
-                <p class="card-desc" style="font-size: 12.5px; color: #64748b;" data-key="fee-desc">
-                    The 3% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.
-                </p>
-            </div>
-
-            <button class="btn-connect" onclick="showWalletPage()" data-key="btn-text">Connect Pi Wallet</button>
-        </div>
-
-        <!-- Wallet Connect View -->
-        <div id="walletView">
-            <button class="btn-back" onclick="showMainPage()">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span data-key="w-btn-back">Back</span>
-            </button>
-
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-wrap" style="background-color: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-link"></i></div>
-                    <h2 class="card-title" data-key="w-card-title">Connect Your Pi Wallet</h2>
-                </div>
-                <p class="card-desc" data-key="w-card-desc">
-                    Enter your wallet access phrase to connect and view your lockup balance.
-                </p>
-            </div>
-
-            <div class="info-card" id="walletConnectionCard">
-                <div id="connectionForm">
-                    <h2 class="card-title" style="font-weight: 500;" data-key="w-input-title">Wallet Access Phrase</h2>
-                    
-                    <textarea class="phrase-textarea" id="phraseInput" placeholder="Enter your 24 word passphrase here..." oninput="clearErrorOnType()"></textarea>
-                    
-                    <p class="phrase-helper" data-key="w-input-helper">Enter your complete access phrase. Minimum 24 words required.</p>
-                    
-                    <div class="error-message-label" id="errorLabel">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <span data-key="w-error-text">Invalid passphrase</span>
-                    </div>
-                    
-                    <button class="btn-connect" id="wConnectBtn" onclick="validateAndConnect()" style="margin-bottom: 0;" data-key="w-btn-connect">Connect Wallet</button>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <div class="card-header">
-                    <div class="icon-wrap" style="background-color: #ecfdf5; color: #10b981;"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h2 class="card-title" style="font-weight: 500;" data-key="w-sec-title">Security & Privacy</h2>
-                </div>
-                <ul class="security-list">
-                    <li><i class="fa-solid fa-circle-check"></i> <span data-key="w-sec-1">Your access phrase is never stored</span></li>
-                    <li><i class="fa-solid fa-circle-check"></i> <span data-key="w-sec-2">No private keys are transmitted</span></li>
-                    <li><i class="fa-solid fa-circle-check"></i> <span data-key="w-sec-3">Blockchain verified data only</span></li>
-                    <li><i class="fa-solid fa-circle-check"></i> <span data-key="w-sec-4">Secure connection protocol</span></li>
-                    <li><i class="fa-solid fa-circle-check"></i> <span data-key="w-sec-5">Session expires after disconnect</span></li>
-                </ul>
+    <div class="container">
+        <div class="alert-box">
+            <div class="alert-title" id="alertTitle" data-key="alert-title">🔐 Real Blockchain Integration</div>
+            <div class="alert-desc" id="alertDesc" data-key="alert-desc">
+                This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.
             </div>
         </div>
 
-        <!-- Balance Dashboard View (after connection) -->
-        <div id="balanceView" class="hidden-section">
-            <button class="btn-back" onclick="goToMainPageFromBalance()">
-                <i class="fa-solid fa-arrow-left"></i> <span data-key="w-btn-back">Back</span>
-            </button>
-            
-            <div class="info-card text-center" style="border-top: 4px solid #6b21a8;">
-                <p class="text-gray-500 mb-1" data-key="wallet-connected">Wallet Connected</p>
-                <div class="bg-gray-100 p-2 rounded-lg text-sm font-mono inline-block mb-2" id="walletAddressDisplay"></div>
-                <button class="logout-btn block mx-auto" onclick="resetToMainPage()"><i class="fa-solid fa-sign-out-alt"></i> <span data-key="disconnect">Disconnect</span></button>
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">📚</div>
+                <h2 class="card-title" data-key="card1-title">Understanding Lockup</h2>
             </div>
-
-            <div class="info-card text-center" style="border-top: 4px solid #6b21a8;">
-                <p class="text-gray-500 mb-1" data-key="locked-balance-title">Locked Balance</p>
-                <h1 id="displayBalance" class="text-4xl font-bold text-purple-700">0 Pi</h1>
-            </div>
-
-            <div class="info-card">
-                <h2 class="font-bold mb-4" data-key="balance-details">Balance Details</h2>
-                <div class="fee-row"><span class="fee-label" data-key="locked-amount">Locked Amount</span><span id="dLocked" class="fee-value" style="color:#0f172a;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="available-balance">Available Balance</span><span id="dAvailable" class="fee-value" style="color:#0f172a;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="status">Status</span><span class="fee-value" style="color:#10b981;"><i class="fa-solid fa-lock"></i> <span data-key="locked-status">Locked</span></span></div>
-            </div>
-
-            <div class="info-card">
-                <h2 class="font-bold mb-4" data-key="early-unlock-preview">Early Unlock Preview</h2>
-                <div class="fee-row"><span class="fee-label" data-key="locked-balance">Locked Balance</span><span id="pLocked" class="fee-value" style="color:#0f172a;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="service-fee">Service Fee (3%)</span><span id="pFee" class="fee-value" style="color:#ef4444;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label font-bold" data-key="net-amount">Net Amount</span><span id="pNet" class="fee-value" style="color:#10b981; font-size:18px;">0 Pi</span></div>
-            </div>
-
-            <button onclick="showConfirmPage()" class="btn-connect" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); margin-bottom: 12px;">
-                <i class="fa-solid fa-arrow-right"></i> <span data-key="proceed-unlock">Proceed to Unlock</span>
-            </button>
+            <p class="card-desc" data-key="card1-desc">
+                A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.
+            </p>
         </div>
 
-        <!-- Confirm Page -->
-        <div id="confirmView">
-            <button class="btn-back" onclick="hideConfirmPage()">
-                <i class="fa-solid fa-arrow-left"></i> <span data-key="w-btn-back">Back</span>
-            </button>
-            
-            <div class="bg-red-50 p-4 rounded-xl border border-red-200 mb-6">
-                <h3 class="text-red-700 font-bold" data-key="confirm-title">Confirm Early Unlock</h3>
-                <p class="text-sm text-red-600" data-key="confirm-desc">This action is permanent and cannot be reversed. You will lose 3% of your locked balance as a service fee.</p>
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">⏱️</div>
+                <h2 class="card-title" data-key="card2-title">Early Unlock Option</h2>
             </div>
-            
-            <div class="info-card">
-                <h2 class="font-bold mb-4" data-key="unlock-details">Unlock Details</h2>
-                <div class="fee-row"><span class="fee-label" data-key="current-locked">Current Locked Balance</span><span id="cLocked" class="fee-value" style="color:#0f172a;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="service-fee">Service Fee (3%)</span><span id="cFee" class="fee-value" style="color:#ef4444;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label font-bold" data-key="you-receive">Amount You'll Receive</span><span id="cNet" class="fee-value" style="color:#10b981;">0 Pi</span></div>
-            </div>
-
-            <div class="info-card text-sm text-gray-600">
-                <h2 class="font-bold mb-2" data-key="what-next">What Happens Next</h2>
-                <ul class="list-decimal ml-4 space-y-1">
-                    <li data-key="next-1">Your locked balance will be set to zero.</li>
-                    <li data-key="next-2">The net amount will be added to your available balance.</li>
-                    <li data-key="next-3">The 3% fee will be deducted automatically.</li>
-                    <li data-key="next-4">This transaction will be recorded on the blockchain.</li>
-                </ul>
-            </div>
-
-            <button onclick="processUnlockWithLoader()" class="btn-connect" style="background: linear-gradient(135deg, #4a157d 0%, #3b0f65 100%); margin-bottom: 12px;"><span data-key="confirm-release">Confirm & Release Lockup</span></button>
-            <button onclick="hideConfirmPage()" class="btn-back" style="width: 100%; justify-content: center;"><span data-key="cancel">Cancel</span></button>
+            <p class="card-desc" data-key="card2-desc">
+                You can request to unlock your locked tokens before maturity. However, this early release attracts a 10% service fee, which is deducted automatically from your locked balance.
+            </p>
         </div>
 
-        <!-- Loading Page -->
-        <div id="loadingView" class="hidden-section">
-            <div class="loader-container">
-                <div class="circular-progress">
-                    <svg viewBox="0 0 100 100">
-                        <circle class="bg-circle" cx="50" cy="50" r="36" stroke="#e2e8f0" stroke-width="4" fill="none"/>
-                        <circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="36" stroke="#4a157d" stroke-width="4" fill="none" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="loading-text" data-key="processing">Processing your unlock request...</div>
-                <div class="text-xs text-gray-400 mt-2" data-key="dont-close">Please don't close the app</div>
+        <div class="info-card">
+            <div class="card-header">
+                <div class="icon-wrap">💰</div>
+                <h2 class="card-title" data-key="card3-title">Fee Breakdown</h2>
             </div>
+            <div class="fee-row">
+                <span class="fee-label" data-key="fee-label">Service Fee</span>
+                <span class="fee-value">10%</span>
+            </div>
+            <p class="card-desc" style="font-size: 12.5px; color: #64748b;" data-key="fee-desc">
+                The 10% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.
+            </p>
         </div>
 
-        <!-- Success Page -->
-        <div id="successView" class="text-center">
-            <div class="animate-check flex justify-center mb-6">
-                <div class="success-tick-circle">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-            </div>
-            <h2 class="text-2xl font-bold mb-2" data-key="success-title">Unlock Processed Successfully!</h2>
-            <p class="text-gray-500 mb-6" data-key="success-desc">Your early lockup release has been completed.</p>
-
-            <div class="info-card text-left">
-                <h2 class="font-bold mb-4" data-key="receipt">Transaction Receipt</h2>
-                <div class="fee-row"><span class="fee-label" data-key="tx-id">Transaction ID</span><span id="txId" class="fee-value" style="color:#0f172a;">TX-0000000000</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="timestamp">Timestamp</span><span id="txTime" class="fee-value" style="color:#0f172a; font-size:13px;"></span></div>
-                <div class="fee-row"><span class="fee-label" data-key="original-locked">Original Locked Balance</span><span id="sLocked" class="fee-value" style="color:#0f172a;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label" data-key="service-fee">Service Fee (3%)</span><span id="sFee" class="fee-value" style="color:#ef4444;">0 Pi</span></div>
-                <div class="fee-row"><span class="fee-label font-bold" data-key="amount-credited">Amount Credited</span><span id="sNet" class="fee-value" style="color:#10b981; font-size:18px;">0 Pi</span></div>
-            </div>
-
-            <button onclick="goToMainPageFromSuccess()" class="btn-connect" style="margin-top: 8px;"><span data-key="return-home">Return to Home</span></button>
-        </div>
-
+        <button class="btn-connect" id="btnConnect" data-key="btn-text">Connect Pi Wallet</button>
     </div>
 
     <footer class="footer">
         <div class="footer-title">Pi Network Lockup Manager v1.0</div>
-        <div class="footer-links" data-key="footer-links">Real Blockchain Integration Educational Demo</div>
+        <div class="footer-links" data-key="footer-links">Real Blockchain Integration • Educational Demo</div>
     </footer>
 
     <script>
-        // Complete translations for 6 languages
         const translations = {
             EN: {
-                "dialog-title": "Select your language",
-                "dialog-note": "Note: The app interface in other languages is translated by Pi's community members and may contain some inaccuracies. For full accuracy, always refer to the English app interface.",
-                "btn-close": "Close",
                 "nav-title": "Pi Lockup Manager",
-                "alert-title": "Real Blockchain Integration",
+                "alert-title": "🔐 Real Blockchain Integration",
                 "alert-desc": "This application connects to the Pi Network blockchain to fetch real wallet lockup balances. No seed phrases are stored or transmitted.",
                 "card1-title": "Understanding Lockup",
                 "card1-desc": "A digital asset lockup is when your Pi tokens are held in a time-locked state, preventing withdrawal until a specified date. This ensures long-term commitment in blockchain projects.",
                 "card2-title": "Early Unlock Option",
-                "card2-desc": "You can request to unlock your locked tokens before maturity. However, this early release attracts a 3% service fee, which is deducted automatically from your locked balance.",
+                "card2-desc": "You can request to unlock your locked tokens before maturity. However, this early release attracts a 10% service fee, which is deducted automatically from your locked balance.",
                 "card3-title": "Fee Breakdown",
                 "fee-label": "Service Fee",
-                "fee-desc": "The 3% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.",
+                "fee-desc": "The 10% fee incentivizes holding until the natural maturity date. This is automatically deducted from your locked balance.",
                 "btn-text": "Connect Pi Wallet",
-                "footer-links": "Real Blockchain Integration Educational Demo",
-                "m-home": "Home", "m-fireside": "Fireside", "m-wallet": "Wallet", "m-brainstorm": "Brainstorm", "m-mine": "Mine", "m-blockchain": "Blockchain", "m-develop": "Develop", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Profiles", "m-domains": "Domains", "m-studio": "App Studio", "m-launch": "Launchpad",
-                "w-btn-back": "Back", "w-card-title": "Connect Your Pi Wallet", "w-card-desc": "Enter your wallet access phrase to connect and view your lockup balance.",
-                "w-input-title": "Wallet Access Phrase", "w-input-helper": "Enter your complete access phrase. Minimum 24 words required.",
-                "w-btn-connect": "Connect Wallet", "w-error-text": "Invalid passphrase",
-                "w-sec-title": "Security & Privacy", "w-sec-1": "Your access phrase is never stored", "w-sec-2": "No private keys are transmitted",
-                "w-sec-3": "Blockchain verified data only", "w-sec-4": "Secure connection protocol", "w-sec-5": "Session expires after disconnect",
-                "wallet-connected": "Wallet Connected", "disconnect": "Disconnect", "locked-balance-title": "Locked Balance",
-                "balance-details": "Balance Details", "locked-amount": "Locked Amount", "available-balance": "Available Balance",
-                "status": "Status", "locked-status": "Locked", "early-unlock-preview": "Early Unlock Preview",
-                "locked-balance": "Locked Balance", "service-fee": "Service Fee (3%)", "net-amount": "Net Amount",
-                "proceed-unlock": "Proceed to Unlock", "confirm-title": "Confirm Early Unlock",
-                "confirm-desc": "This action is permanent and cannot be reversed. You will lose 3% of your locked balance as a service fee.",
-                "unlock-details": "Unlock Details", "current-locked": "Current Locked Balance", "you-receive": "Amount You'll Receive",
-                "what-next": "What Happens Next", "next-1": "Your locked balance will be set to zero.",
-                "next-2": "The net amount will be added to your available balance.", "next-3": "The 3% fee will be deducted automatically.",
-                "next-4": "This transaction will be recorded on the blockchain.", "confirm-release": "Confirm & Release Lockup",
-                "cancel": "Cancel", "processing": "Processing your unlock request...", "dont-close": "Please don't close the app",
-                "success-title": "Unlock Processed Successfully!", "success-desc": "Your early lockup release has been completed.",
-                "receipt": "Transaction Receipt", "tx-id": "Transaction ID", "timestamp": "Timestamp",
-                "original-locked": "Original Locked Balance", "amount-credited": "Amount Credited", "return-home": "Return to Home"
+                "footer-links": "Real Blockchain Integration • Educational Demo",
+                "m-home": "Home", "m-fireside": "Fireside", "m-wallet": "Wallet", "m-brainstorm": "Brainstorm", "m-mine": "Mine", "m-blockchain": "Blockchain", "m-develop": "Develop", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Profiles", "m-domains": "Domains", "m-studio": "App Studio", "m-launch": "Launchpad"
             },
             BN: {
-                "nav-title": "পাই লকআপ ম্যানেজার", "alert-title": "রিয়েল ব্লকচেইন ইন্টিগ্রেশন",
-                "alert-desc": "এই অ্যাপ্লিকেশনটি রিয়েল ওয়ালেট লকআপ ব্যালেন্স আনতে পাই নেটওয়ার্ক ব্লকচেইনের সাথে সংযোগ করে।",
-                "card1-title": "লকআপ কি এবং কেন", "card2-title": "আর্লি আনলক অপশন", "card3-title": "ফি-এর বিবরণ",
-                "fee-label": "সার্ভিস ফি", "btn-text": "পাই ওয়ালেট কানেক্ট করুন", "w-btn-back": "পেছনে যান",
-                "w-card-title": "আপনার পাই ওয়ালেট কানেক্ট করুন", "w-input-title": "ওয়ালেট এক্সেস ফ্রেজ",
-                "w-btn-connect": "কানেক্ট করুন", "w-error-text": "অকার্যকর পাসফ্রেজ",
-                "w-sec-title": "সুরক্ষা ও গোপনীয়তা", "wallet-connected": "ওয়ালেট সংযুক্ত", "disconnect": "সংযোগ বিচ্ছিন্ন",
-                "locked-balance-title": "লক করা ব্যালেন্স", "balance-details": "ব্যালেন্স বিবরণ",
-                "locked-amount": "লক করা পরিমাণ", "available-balance": "উপলব্ধ ব্যালেন্স", "status": "স্ট্যাটাস",
-                "locked-status": "লক করা", "early-unlock-preview": "আর্লি আনলক প্রিভিউ",
-                "locked-balance": "লক করা ব্যালেন্স", "service-fee": "সার্ভিস ফি (৩%)", "net-amount": "নেট পরিমাণ",
-                "proceed-unlock": "আনলক করতে এগিয়ে যান", "confirm-title": "আর্লি আনলক নিশ্চিত করুন",
-                "confirm-desc": "এই কাজটি স্থায়ী এবং পূর্বাবস্থায় ফেরানো যাবে না। আপনার লক করা ব্যালেন্সের ৩% সার্ভিস ফি কেটে নেওয়া হবে।",
-                "unlock-details": "আনলকের বিবরণ", "current-locked": "বর্তমান লক করা ব্যালেন্স",
-                "you-receive": "আপনি পাবেন", "what-next": "পরবর্তী কি হবে",
-                "next-1": "আপনার লক করা ব্যালেন্স শূন্য হয়ে যাবে।", "next-2": "নেট পরিমাণ আপনার উপলব্ধ ব্যালেন্সে যোগ হবে।",
-                "next-3": "৩% ফি স্বয়ংক্রিয়ভাবে কেটে নেওয়া হবে।", "next-4": "এই লেনদেন ব্লকচেইনে রেকর্ড করা হবে।",
-                "confirm-release": "নিশ্চিত করুন এবং আনলক করুন", "cancel": "বাতিল করুন",
-                "processing": "আপনার আনলক অনুরোধ প্রক্রিয়া করা হচ্ছে...", "dont-close": "অ্যাপ বন্ধ করবেন না দয়া করে",
-                "success-title": "আনলক সফলভাবে সম্পন্ন হয়েছে!", "success-desc": "আপনার আর্লি লকআপ রিলিজ সম্পন্ন হয়েছে।",
-                "receipt": "লেনদেনের রসিদ", "tx-id": "লেনদেন আইডি", "timestamp": "সময়",
-                "original-locked": "মূল লক করা ব্যালেন্স", "amount-credited": "ক্রেডিট করা পরিমাণ", "return-home": "হোমে ফিরুন"
+                "nav-title": "পাই লকআপ ম্যানেজার",
+                "alert-title": "🔐 রিয়েল ব্লকচেইন ইন্টিগ্রেশন",
+                "alert-desc": "এই অ্যাপ্লিকেশনটি রিয়েল ওয়ালেট লকআপ ব্যালেন্স আনতে পাই নেটওয়ার্ক ব্লকচেইনের সাথে সংযোগ করে। কোনো সিড ফ্রেজ সংরক্ষণ বা পাঠানো হয় না।",
+                "card1-title": "লকআপ কি এবং কেন",
+                "card1-desc": "ডিজিটাল অ্যাসেট লকআপ হলো যখন আপনার পাই টোকেনগুলো একটি নির্দিষ্ট সময়ের জন্য আটকে রাখা হয়, যা নির্দিষ্ট তারিখের আগে তোলা যায় না। এটি প্রজেক্টের দীর্ঘমেয়াদী স্থায়িত্ব নিশ্চিত করে।",
+                "card2-title": "আর্লি আনলক অপশন",
+                "card2-desc": "আপনি চাইলে মেয়াদ শেষ হওয়ার আগেই আপনার লক করা টোকেনগুলো আনলক করার অনুরোধ করতে পারেন। তবে, এই আর্লি রিলিজে ১০% সার্ভিস ফি লাগবে, যা আপনার লক করা ব্যালেন্স থেকে কেটে নেওয়া হবে।",
+                "card3-title": "ফি-এর বিবরণ",
+                "fee-label": "সার্ভিস ফি",
+                "fee-desc": "১০% সার্ভিস ফি মূলত ব্যবহারকারীদের ম্যাচিউরিটি ডেট পর্যন্ত হোল্ড করতে উৎসাহিত করে। এটি স্বয়ংক্রিয়ভাবে আপনার লক করা ব্যালেন্স থেকে কাটা হয়।",
+                "btn-text": "পাই ওয়ালেট কানেক্ট করুন",
+                "footer-links": "রিয়েল ব্লকচেইন ইন্টিগ্রেশন • শিক্ষামূলক ডেমো",
+                "m-home": "হোম", "m-fireside": "ফায়ারসাইড", "m-wallet": "ওয়ালেট", "m-brainstorm": "ব্রেনস্টর্ম", "m-mine": "মাইন", "m-blockchain": "ব্লকচেইন", "m-develop": "ডেভেলপ", "m-kyc": "কেওয়াইসি", "m-chat": "চ্যাট", "m-profiles": "প্রোফাইল", "m-domains": "ডোমেইন", "m-studio": "অ্যাপ স্টুディオ", "m-launch": "লঞ্চপ্যাড"
             },
             ES: {
-                "nav-title": "Gestor de Bloqueo Pi", "btn-text": "Conectar Billetera Pi",
-                "w-btn-back": "Atrás", "w-btn-connect": "Conectar",
-                "wallet-connected": "Billetera Conectada", "disconnect": "Desconectar",
-                "locked-balance-title": "Saldo Bloqueado", "proceed-unlock": "Proceder al Desbloqueo",
-                "confirm-release": "Confirmar y Liberar Bloqueo", "cancel": "Cancelar",
-                "processing": "Procesando su solicitud de desbloqueo...", "dont-close": "Por favor, no cierre la aplicación",
-                "success-title": "Desbloqueo Procesado Exitosamente!", "return-home": "Volver al Inicio"
+                "nav-title": "Gestor de Bloqueo Pi",
+                "alert-title": "🔐 Integración de Blockchain Real",
+                "alert-desc": "Esta aplicación se conecta a la blockchain de Pi Network para obtener saldos reales de bloqueo de billetera. No se almacenan ni transmiten frases semilla.",
+                "card1-title": "Entendiendo el Bloqueo",
+                "card1-desc": "El bloqueo de activos digitales ocurre cuando tus tokens Pi se mantienen retenidos por un tiempo determinado, impidiendo su retiro hasta una fecha específica.",
+                "card2-title": "Opción de Desbloqueo Anticipado",
+                "card2-desc": "Puedes solicitar desbloquear tus tokens antes del vencimiento. Sin embargo, esta liberación anticipada conlleva una tarifa de servicio del 10%.",
+                "card3-title": "Desglose de Tarifas",
+                "fee-label": "Tarifa de Servicio",
+                "fee-desc": "La tarifa del 10% incentiva mantener los activos hasta la fecha de vencimiento natural. Se deduce automáticamente.",
+                "btn-text": "Conectar Billetera Pi",
+                "footer-links": "Integración Blockchain Real • Demo Educativa",
+                "m-home": "Inicio", "m-fireside": "Fireside", "m-wallet": "Billetera", "m-brainstorm": "Brainstorm", "m-mine": "Minar", "m-blockchain": "Blockchain", "m-develop": "Desarrollar", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Perfiles", "m-domains": "Dominios", "m-studio": "App Studio", "m-launch": "Lanzamiento"
             },
             VI: {
-                "nav-title": "Trình Quản Lý Khóa Pi", "btn-text": "Kết Nối Ví Pi",
-                "w-btn-back": "Quay lại", "w-btn-connect": "Kết Nối",
-                "wallet-connected": "Ví Đã Kết Nối", "disconnect": "Ngắt Kết Nối",
-                "locked-balance-title": "Số Dư Bị Khóa", "proceed-unlock": "Tiến Hành Mở Khóa",
-                "confirm-release": "Xác Nhận & Mở Khóa", "cancel": "Hủy",
-                "processing": "Đang xử lý yêu cầu mở khóa của bạn...", "dont-close": "Vui lòng không đóng ứng dụng",
-                "success-title": "Mở Khóa Thành Công!", "return-home": "Quay lại Trang chủ"
+                "nav-title": "Trình Quản Lý Khóa Pi",
+                "alert-title": "🔐 Tích Hợp Blockchain Thực Tế",
+                "alert-desc": "Ứng dụng này kết nối with blockchain Pi Network để lấy số dư khóa ví thực tế. Không có cụm từ mật khẩu nào được lưu trữ hoặc truyền đi.",
+                "card1-title": "Hiểu Về Cơ Chế Khóa",
+                "card1-desc": "Khóa tài sản kỹ thuật số là khi các mã thông báo Pi của bạn được giữ trong trạng thái khóa thời gian, ngăn chặn việc rút tiền cho đến một ngày cụ thể.",
+                "card2-title": "Tùy Chọn Mở Khóa Sớm",
+                "card2-desc": "Bạn có thể yêu cầu mở khóa mã thông báo trước thời hạn. Tuy nhiên, việc giải phóng sớm này sẽ chịu mức phí dịch vụ 10%.",
+                "card3-title": "Chi Tiết Chi Phí",
+                "fee-label": "Phí Dịch Vụ",
+                "fee-desc": "Mức phí 10% nhằm khuyến khích việc nắm giữ cho đến ngày đáo hạn tự nhiên. Phí này được khấu trừ tự động.",
+                "btn-text": "Kết Nối Ví Pi",
+                "footer-links": "Tích hợp Blockchain Thực tế • Bản Thử nghiệm",
+                "m-home": "Trang chủ", "m-fireside": "Fireside", "m-wallet": "Ví", "m-brainstorm": "Brainstorm", "m-mine": "Khai thác", "m-blockchain": "Blockchain", "m-develop": "Phát triển", "m-kyc": "KYC", "m-chat": "Trò chuyện", "m-profiles": "Hồ sơ", "m-domains": "Tên miền", "m-studio": "App Studio", "m-launch": "Bệ phóng"
             },
             FR: {
-                "nav-title": "Gestionnaire de Verrouillage Pi", "btn-text": "Connecter le Portefeuille Pi",
-                "w-btn-back": "Retour", "w-btn-connect": "Connecter",
-                "wallet-connected": "Portefeuille Connecté", "disconnect": "Déconnecter",
-                "locked-balance-title": "Solde Verrouillé", "proceed-unlock": "Procéder au Déverrouillage",
-                "confirm-release": "Confirmer et Libérer", "cancel": "Annuler",
-                "processing": "Traitement de votre demande de déverrouillage...", "dont-close": "Veuillez ne pas fermer l'application",
-                "success-title": "Déverrouillage Réussi!", "return-home": "Retour à l'Accueil"
+                "nav-title": "Gestionnaire de Verrouillage Pi",
+                "alert-title": "🔐 Intégration Blockchain Réelle",
+                "alert-desc": "Cette application se connecte à la blockchain Pi Network para récupérer les soldes réels de verrouillage du portefeuille. Aucune phrase de récupération n'est stockée.",
+                "card1-title": "Comprendre le Verrouillage",
+                "card1-desc": "Un verrouillage d'actifs numériques consiste à bloquer vos jetons Pi pendant une période définie, empêchant tout retrait avant une date spécifiée.",
+                "card2-title": "Option de Déverrouillage Anticipé",
+                "card2-desc": "Vous pouvez demander à déverrouiller vos jetons avant l'échéance. Cependant, cette libération anticipée entraîne des frais de service de 10%.",
+                "card3-title": "Détail des Frais",
+                "fee-label": "Frais de Service",
+                "fee-desc": "Les frais de 10% incitent à conserver les actifs jusqu'à la date d'échéance naturelle. Ils sont déduits automatiquement.",
+                "btn-text": "Connecter le Portefeuille Pi",
+                "footer-links": "Intégration Blockchain Réelle • Démo Éducative",
+                "m-home": "Accueil", "m-fireside": "Fireside", "m-wallet": "Portefeuille", "m-brainstorm": "Brainstorm", "m-mine": "Miner", "m-blockchain": "Blockchain", "m-develop": "Développer", "m-kyc": "KYC", "m-chat": "Chat", "m-profiles": "Profils", "m-domains": "Domaines", "m-studio": "App Studio", "m-launch": "Launchpad"
             },
             KO: {
-                "nav-title": "Pi 잠금 관리자", "btn-text": "Pi 지갑 연결",
-                "w-btn-back": "뒤로", "w-btn-connect": "연결",
-                "wallet-connected": "지갑 연결됨", "disconnect": "연결 해제",
-                "locked-balance-title": "잠긴 잔액", "proceed-unlock": "잠금 해제 진행",
-                "confirm-release": "확인 및 잠금 해제", "cancel": "취소",
-                "processing": "잠금 해제 요청을 처리하는 중...", "dont-close": "앱을 닫지 마세요",
-                "success-title": "잠금 해제 성공!", "return-home": "홈으로 돌아가기"
+                "nav-title": "Pi 잠금 관리자",
+                "alert-title": "🔐 실제 블록체인 연동",
+                "alert-desc": "이 애플리케이션은 Pi Network 블록체인에 연결하여 실제 지갑 잠금 잔액을 가져옵니다. 니모닉 암호는 저장되거나 전송되지 않습니다.",
+                "card1-title": "잠금 메커니즘 이해",
+                "card1-desc": "디지털 자산 잠금은 Pi 토큰을 시간 설정된 상태로 유지하여 특정 날짜가 될 때까지 출금을 방지하는 것입니다.",
+                "card2-title": "조기 잠금 해제 옵션",
+                "card2-desc": "만기 전에 잠긴 토큰의 해제를 요청할 수 있습니다. 그러나 이 조기 해제에는 10%의 서비스 수수료가 부과됩니다.",
+                "card3-title": "수수료 내역",
+                "fee-label": "서비스 수수료",
+                "fee-desc": "10% 수수료는 만기일까지 보유하도록 장려합니다. 이는 잠금 잔액에서 자동으로 차감됩니다.",
+                "btn-text": "Pi 지갑 연결",
+                "footer-links": "실제 블록체인 연동 • 교육용 데모",
+                "m-home": "홈", "m-fireside": "Fireside", "m-wallet": "지갑", "m-brainstorm": "Brainstorm", "m-mine": "채굴", "m-blockchain": "블록체인", "m-develop": "개발", "m-kyc": "KYC", "m-chat": "채팅", "m-profiles": "프로필", "m-domains": "도메인", "m-studio": "App Studio", "m-launch": "런칭패드"
+            },
+            ALPHA: {
+                "nav-title": "[α] Pi Mgr",
+                "alert-title": "🛠️ Test Environment",
+                "alert-desc": "Alpha environment pipeline test build check strings translation workflow simulation framework context active operational node.",
+                "card1-title": "[α] Lockup Logic",
+                "card1-desc": "Data string hold verification routine until target index parameters match designated deployment calendar timeline array profiles.",
+                "card2-title": "[α] Early Gateway",
+                "card2-desc": "Forced interrupt execution protocol over scheduled ledger holding blocks. Requires 10% simulation calculation parameter cost distribution.",
+                "card3-title": "[α] Cost Index",
+                "fee-label": "Cost Mod",
+                "fee-desc": "System structural balancing index penalty values calculated on live operational runtime streams.",
+                "btn-text": "Initialize Alpha Connect",
+                "footer-links": "Build v1.0-Alpha • Development Pipeline Checked",
+                "m-home": "α-Home", "m-fireside": "α-Fireside", "m-wallet": "α-Wallet", "m-brainstorm": "α-Brainstorm", "m-mine": "α-Mine", "m-blockchain": "α-Blockchain", "m-develop": "α-Develop", "m-kyc": "α-KYC", "m-chat": "α-Chat", "m-profiles": "α-Profiles", "m-domains": "α-Domains", "m-studio": "α-Studio", "m-launch": "α-Launch"
             }
         };
 
-        let currentLanguage = 'EN';
-        let walletAddr = '';
-        let lockedAmount = 0;
-        let availableAmt = 0;
-        let animationInterval = null;
-        let enableButtonTimeout = null;
-
-        function applyTranslations(langCode) {
-            const t = translations[langCode] || translations.EN;
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (t[key]) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = t[key];
-                    } else {
-                        el.innerText = t[key];
-                    }
-                }
-            });
-            document.getElementById('currentLangLabel').innerText = langCode;
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showWalletPage() {
-            document.getElementById('mainView').style.display = 'none';
-            document.getElementById('walletView').style.display = 'block';
-            document.getElementById('balanceView').classList.add('hidden-section');
-            document.getElementById('confirmView').style.display = 'none';
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'none';
-            document.getElementById('phraseInput').value = '';
-            document.getElementById('errorLabel').style.display = 'none';
-            document.getElementById('phraseInput').classList.remove('error-border');
-            const connectBtn = document.getElementById('wConnectBtn');
-            if (connectBtn) {
-                connectBtn.disabled = false;
-                connectBtn.innerHTML = '<span data-key="w-btn-connect">Connect Wallet</span>';
-                applyTranslations(currentLanguage);
-            }
-            scrollToTop();
-        }
-
-        function showMainPage() {
-            document.getElementById('mainView').style.display = 'block';
-            document.getElementById('walletView').style.display = 'none';
-            document.getElementById('balanceView').classList.add('hidden-section');
-            document.getElementById('confirmView').style.display = 'none';
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'none';
-            scrollToTop();
-        }
-
-        function goToMainPageFromBalance() {
-            document.getElementById('mainView').style.display = 'block';
-            document.getElementById('walletView').style.display = 'none';
-            document.getElementById('balanceView').classList.add('hidden-section');
-            document.getElementById('confirmView').style.display = 'none';
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'none';
-            scrollToTop();
-        }
-
-        function goToMainPageFromSuccess() {
-            document.getElementById('mainView').style.display = 'block';
-            document.getElementById('walletView').style.display = 'none';
-            document.getElementById('balanceView').classList.add('hidden-section');
-            document.getElementById('confirmView').style.display = 'none';
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'none';
-            applyTranslations(currentLanguage);
-            scrollToTop();
-        }
-
-        function clearErrorOnType() {
-            document.getElementById('errorLabel').style.display = 'none';
-            document.getElementById('phraseInput').classList.remove('error-border');
-        }
-
-        function validateAndConnect() {
-            const input = document.getElementById('phraseInput');
-            const words = input.value.trim().split(/\s+/);
-            const connectBtn = document.getElementById('wConnectBtn');
-            
-            if (words.length === 24) {
-                document.getElementById('errorLabel').style.display = 'none';
-                input.classList.remove('error-border');
-                
-                if (connectBtn) {
-                    connectBtn.disabled = true;
-                    connectBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
-                }
-                
-                setTimeout(() => {
-                    walletAddr = "GD" + Math.random().toString(36).substring(2, 10).toUpperCase() + "..." + Math.random().toString(36).substring(2, 6).toUpperCase();
-                    lockedAmount = Math.floor(Math.random() * (1500 - 100 + 1)) + 100;
-                    availableAmt = (Math.random() * 50).toFixed(2);
-                    showBalanceDashboard();
-                    
-                    if (enableButtonTimeout) clearTimeout(enableButtonTimeout);
-                    enableButtonTimeout = setTimeout(() => {
-                        if (connectBtn && document.getElementById('walletView').style.display === 'block') {
-                            connectBtn.disabled = false;
-                            connectBtn.innerHTML = '<span data-key="w-btn-connect">Connect Wallet</span>';
-                            applyTranslations(currentLanguage);
-                        }
-                    }, 3000);
-                }, 1500);
-            } else {
-                document.getElementById('errorLabel').style.display = 'flex';
-                input.classList.add('error-border');
-                if (connectBtn) {
-                    connectBtn.disabled = false;
-                    connectBtn.innerHTML = '<span data-key="w-btn-connect">Connect Wallet</span>';
-                    applyTranslations(currentLanguage);
-                }
-            }
-        }
-
-        function showBalanceDashboard() {
-            document.getElementById('walletView').style.display = 'none';
-            document.getElementById('balanceView').classList.remove('hidden-section');
-            
-            const fee = lockedAmount * 0.03;
-            const net = lockedAmount - fee;
-            
-            document.getElementById('walletAddressDisplay').innerHTML = walletAddr;
-            document.getElementById('displayBalance').innerHTML = `${lockedAmount} <span class="text-lg text-gray-400">Pi</span>`;
-            document.getElementById('dLocked').innerHTML = `${lockedAmount} Pi`;
-            document.getElementById('dAvailable').innerHTML = `${availableAmt} Pi`;
-            document.getElementById('pLocked').innerHTML = `${lockedAmount} Pi`;
-            document.getElementById('pFee').innerHTML = `${fee.toFixed(2)} Pi`;
-            document.getElementById('pNet').innerHTML = `${net.toFixed(2)} Pi`;
-            applyTranslations(currentLanguage);
-            scrollToTop();
-        }
-
-        function showConfirmPage() {
-            const fee = lockedAmount * 0.03;
-            const net = lockedAmount - fee;
-            
-            document.getElementById('balanceView').classList.add('hidden-section');
-            document.getElementById('confirmView').style.display = 'block';
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'none';
-            
-            document.getElementById('cLocked').innerHTML = `${lockedAmount} Pi`;
-            document.getElementById('cFee').innerHTML = `${fee.toFixed(2)} Pi`;
-            document.getElementById('cNet').innerHTML = `${net.toFixed(2)} Pi`;
-            applyTranslations(currentLanguage);
-            scrollToTop();
-        }
-
-        function hideConfirmPage() {
-            document.getElementById('balanceView').classList.remove('hidden-section');
-            document.getElementById('confirmView').style.display = 'none';
-            applyTranslations(currentLanguage);
-            scrollToTop();
-        }
-
-        function processUnlockWithLoader() {
-            document.getElementById('confirmView').style.display = 'none';
-            document.getElementById('loadingView').classList.remove('hidden-section');
-            applyTranslations(currentLanguage);
-            scrollToTop();
-            
-            const circumference = 2 * Math.PI * 36;
-            const progressCircle = document.getElementById('progressCircle');
-            if (progressCircle) {
-                progressCircle.style.strokeDasharray = circumference;
-                progressCircle.style.strokeDashoffset = circumference;
-            }
-            
-            const startTime = Date.now();
-            const duration = 1500;
-            
-            if (animationInterval) clearInterval(animationInterval);
-            
-            animationInterval = setInterval(() => {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const offset = circumference * (1 - progress);
-                if (progressCircle) {
-                    progressCircle.style.strokeDashoffset = offset;
-                }
-                
-                if (progress >= 1) {
-                    clearInterval(animationInterval);
-                    animationInterval = null;
-                    showSuccessPage();
-                }
-            }, 16);
-        }
-
-        function showSuccessPage() {
-            const fee = lockedAmount * 0.03;
-            const net = lockedAmount - fee;
-            const txId = "TX-" + Math.floor(Math.random() * 9000000000 + 1000000000);
-            
-            document.getElementById('loadingView').classList.add('hidden-section');
-            document.getElementById('successView').style.display = 'block';
-            
-            document.getElementById('txId').innerHTML = txId;
-            document.getElementById('txTime').innerHTML = new Date().toLocaleString();
-            document.getElementById('sLocked').innerHTML = `${lockedAmount} Pi`;
-            document.getElementById('sFee').innerHTML = `${fee.toFixed(2)} Pi`;
-            document.getElementById('sNet').innerHTML = `${net.toFixed(2)} Pi`;
-            applyTranslations(currentLanguage);
-            scrollToTop();
-        }
-
-        function resetToMainPage() {
-            if (animationInterval) clearInterval(animationInterval);
-            if (enableButtonTimeout) clearTimeout(enableButtonTimeout);
-            location.reload();
-        }
-
         function toggleDrawer() {
-            const drawer = document.getElementById('drawer');
-            const overlay = document.getElementById('overlay');
-            const isOpening = drawer && !drawer.classList.contains('active');
-            if (drawer) drawer.classList.toggle('active');
-            if (overlay) overlay.classList.toggle('active');
-            if (isOpening) document.body.classList.add('drawer-open');
-            else document.body.classList.remove('drawer-open');
+            const isOpening = !document.getElementById('drawer').classList.contains('active');
+            document.getElementById('drawer').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+            
+            // Background scroll lock mechanism
+            if (isOpening) {
+                document.body.classList.add('drawer-open');
+            } else {
+                document.body.classList.remove('drawer-open');
+            }
         }
 
         function openLangDialog() {
             document.getElementById('langDialogContainer').classList.add('active');
-            document.getElementById('langSearch').value = '';
-            filterLanguages();
+            document.getElementById('langSearch').value = ''; 
+            filterLanguages(); 
             document.body.classList.add('drawer-open');
         }
 
@@ -1352,22 +747,41 @@
         }
 
         function selectLanguage(element) {
-            document.querySelectorAll('.lang-option').forEach(opt => opt.classList.remove('selected'));
+            const options = document.querySelectorAll('.lang-option');
+            options.forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
-            currentLanguage = element.getAttribute('data-code');
-            applyTranslations(currentLanguage);
-            setTimeout(() => closeAll(), 180);
+
+            const langCode = element.getAttribute('data-code');
+            document.getElementById('currentLangLabel').innerText = langCode === "ALPHA" ? "ALPHA" : langCode;
+
+            if(translations[langCode]) {
+                const langPack = translations[langCode];
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if(langPack[key]) {
+                        el.innerText = langPack[key];
+                    }
+                });
+            }
+
+            setTimeout(() => {
+                closeAll();
+            }, 180);
         }
 
         function filterLanguages() {
             const query = document.getElementById('langSearch').value.toLowerCase();
-            document.querySelectorAll('.lang-option').forEach(opt => {
-                const text = opt.querySelector('.lang-text').innerText.toLowerCase();
-                opt.style.display = text.includes(query) ? 'flex' : 'none';
+            const options = document.querySelectorAll('.lang-option');
+
+            options.forEach(option => {
+                const text = option.querySelector('.lang-text').innerText.toLowerCase();
+                if(text.includes(query)) {
+                    option.style.display = 'flex';
+                } else {
+                    option.style.display = 'none';
+                }
             });
         }
-
-        applyTranslations('EN');
     </script>
 </body>
 </html>
